@@ -5,15 +5,11 @@ import com.thesi.adapter.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.Objects;
 
-@DataJpaTest(properties = {
-  "spring.datasource.url=jdbc:h2:mem:testdb",
-  "spring.jpa.hibernate.ddl-auto=create-drop"
-})
+@DataJpaTest
 //@SpringBootTest
 @Import({UserPersistenceAdapter.class})
 class UserPersistenceAdapterTest {
