@@ -1,6 +1,7 @@
 package com.thesi.adapter;
 
 import lombok.extern.slf4j.Slf4j;
+import org.flywaydb.core.Flyway;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,6 +15,21 @@ public class MySQLContainerInitializer implements ApplicationContextInitializer<
 
     static {
         mySQLContainer.start();
+        runMigrate(flyway(mySQLContainer));
+
+    }
+
+    public static Flyway flyway(MySQLContainer<?> mySQLContainer) {
+        return Flyway.configure()
+                 .dataSource(mySQLContainer.getJdbcUrl(), mySQLContainer.getUsername(), mySQLContainer.getPassword())
+                 .locations("filesystem:db/migration")
+                 .cleanDisabled(false)
+                 .load();
+    }
+
+    public static void runMigrate(Flyway flyway) {
+        flyway.clean();
+        flyway.migrate();
     }
 
     @Override
