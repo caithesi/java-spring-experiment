@@ -1,0 +1,8 @@
+consider the following:
+
+    start containers parallel with import org.testcontainers.lifecycle.Startables;
+        then     Startables.deepStart(postgres, kafka).join();
+
+
+    https://github.com/PlaytikaOSS/testcontainers-spring-boot
+    this may help https://maciejwalkowiak.com/blog/testcontainers-spring-boot-setup/#start-containers-in-parallel
